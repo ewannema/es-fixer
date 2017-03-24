@@ -1,0 +1,13 @@
+---
+
+- name: Pesky firewalls
+  command: iptables -F
+  when: fixlevel > 0
+
+- name: It still isn't working
+  command: setenforce 0
+  when: fixlevel > 1
+
+- name: I can do what I want
+  command: chmod 0777 {{ application_directory }}
+  when: fixlevel > 2
