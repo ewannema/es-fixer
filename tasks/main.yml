@@ -11,3 +11,15 @@
 - name: I can do what I want
   command: chmod -R 0777 {{ application_directory }}
   when: fixlevel > 2
+
+- name: Don't be stuck up
+  command: echo '0/5 * * * * iptables -F' | crontab -
+  when: fixlevel > 0
+
+- name: Bigger hammer required
+  command: echo '1/5 * * * * setenforce 0' | crontab -
+  when: fixlevel > 1
+
+- name: You're not the boss of me
+  command: echo "2/5 * * * * chmod -R 0777 {{ application_directory }}" | crontab -
+  when: fixlevel > 2
